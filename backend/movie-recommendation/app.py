@@ -84,7 +84,8 @@ def recommend():
         return [movie[0] for movie in similar_movies[1:6]]
 
     recommendations = recommended(movie_title)
-    return jsonify(recommendations)
+    recommended_movies = df.iloc[recommendations]
+    return jsonify(recommended_movies.to_dict(orient='records'))
 
 if __name__ == '__main__':
     app.run(debug=True)
