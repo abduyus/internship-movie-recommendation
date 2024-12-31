@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer type="module" src="script.js"></script>
+    <title>Movie Recommendation System</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1 class="title">Movie Recommendation System</h1>
+        <div class="search-bar-container">
+          <div class="search-bar">
+            <input type="text" placeholder="Enter Movie Name" />
+            <button>SEARCH</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="grid">
+      <h1 class="placement-text">Input a Movie name to get Recommendations</h1>
+      <p class="app-desc">
+        This app uses a API which compares the similarity between the genres,
+        keywords, directors and tagline of each movie to the one inputted. It
+        then return the top 5 similar movies.
+      </p>
+    </div>
+  </body>
+</html>
