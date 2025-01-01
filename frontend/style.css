@@ -210,6 +210,106 @@ h1 {
   color: #004085;
 }
 
+.card__genre.comedy {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.card__genre.animation {
+  background-color: #f0abfc;
+  color: #701a75;
+}
+
+.card__genre.crime {
+  background-color: #d6d8d9;
+  color: #6c757d;
+}
+
+.card__genre.documentary {
+  background-color: #fca5a5;
+  color: #7c2d12;
+}
+
+.card__genre.drama {
+  background-color: #d9f99d;
+  color: #365314;
+}
+
+.card__genre.family {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.card__genre.fantasy {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.card__genre.fiction {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.card__genre.foreign {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.card__genre.history {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.card__genre.horror {
+  background-color: #f0abfc;
+  color: #701a75;
+}
+
+.card__genre.movie {
+  background-color: #d6d8d9;
+  color: #6c757d;
+}
+
+.card__genre.music {
+  background-color: #fca5a5;
+  color: #7c2d12;
+}
+
+.card__genre.mystery {
+  background-color: #d9f99d;
+  color: #365314;
+}
+
+.card__genre.romance {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.card__genre.science {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.card__genre.thriller {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.card__genre.tv {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.card__genre.war {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.card__genre.western {
+  background-color: #f0abfc;
+  color: #701a75;
+}
+
 .card__heading:link,
 .card__heading:visited {
   font-size: 2.7rem;
