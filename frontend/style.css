@@ -10,11 +10,12 @@ html {
 
 body {
   font-family: "Roboto", sans-serif;
+  background-color: #1c1c1c;
 }
 
 header {
   padding: 2.4rem;
-  background-color: #f5f5f4;
+  background-color: #0b0b0b;
   /* background-color: #e9ecef; */
   border-radius: 0.8rem;
   box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
@@ -28,7 +29,9 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 2.4rem; */
+  position: relative;
+  margin-bottom: 1.2rem;
+  margin-top: 1.2rem;
 }
 
 h1 {
@@ -65,12 +68,15 @@ h1 {
   width: 100%;
   max-width: 500px;
   margin: auto;
+  position: absolute; /* Centers the item relative to the container */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .search-bar {
   display: flex;
   align-items: center;
-  border-radius: 50px;
+  border-radius: 500rem;
   padding: 10px;
   width: 100%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -90,7 +96,7 @@ h1 {
 }
 
 .search-bar input::placeholder {
-  color: #c8c8c8;
+  color: #adb5bd;
   /* font-style: italic; */
 }
 
