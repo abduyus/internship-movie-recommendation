@@ -1,3 +1,4 @@
+from flask import Flask, request, jsonify
 import pandas as pd
 import re
 import tiktoken
@@ -5,24 +6,20 @@ from sklearn.feature_extraction.text import CountVectorizer
 from scipy.sparse import hstack
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
-# from typing import Union
-from fastapi import FastAPI, Request, Query
-from fastapi.responses import JSONResponse
 
-app = FastAPI()
+app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return "Hello, Flask!"
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-@app.get("/recommend")
-async def recommend(movie_title: str = Query(..., alias="movie_title")):
+@app.route('/recommend', methods=['GET'])
+def recommend():
     # Get the movie title from the query parameters
-    movie_title = movie_title.lower()
+    movie_title = request.args.get('movie_title', '').lower()
 
     # Step 1: Read the CSV file with appropriate parameters
-    df = pd.read_csv('../../data/movie_dataset.csv')
+    df = pd.read_csv('../data/movie_dataset.csv')
     df['title'] = df['title'].str.lower()
 
     expected_columns = ['genres', 'keywords', 'cast', 'director']
@@ -85,8 +82,9 @@ async def recommend(movie_title: str = Query(..., alias="movie_title")):
         similar_movies = list(enumerate(similarity_matrix[movie_index]))
         similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
         return [movie[0] for movie in similar_movies[1:6]]
-
     recommendations = recommended(movie_title)
     recommended_movies = df.iloc[recommendations]
-    recommended_movies = recommended_movies.fillna('')  # Handle NaN values
-    return JSONResponse(content=recommended_movies.to_dict(orient='records'))
+    return jsonify(recommended_movies.to_dict(orient='records'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
