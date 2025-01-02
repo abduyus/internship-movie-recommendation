@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import pandas as pd
 import re
 import tiktoken
@@ -6,12 +6,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from scipy.sparse import hstack
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
-
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def home():
-    return "Hello, Flask!"
+    return render_template('index.html')
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
