@@ -52,13 +52,13 @@ def recommend():
         return matrix_name, array_name, df_name
 
     df['tagline'] = df['tagline'].apply(lambda x: x if isinstance(x, str) else '')
-    genres_matrix, genres_array, genres_df = token_matrix_generator('genres')
-    keywords_matrix, keywords_array, keywords_df = token_matrix_generator('keywords')
-    overview_matrix, overview_array, overview_df = token_matrix_generator('overview')
-    tagline_matrix, tagline_array, tagline_df = token_matrix_generator('tagline')
-    title_matrix, title_array, title_df = token_matrix_generator('title')
-    cast_matrix, cast_array, cast_df = token_matrix_generator('cast')
-    director_matrix, director_array, director_df = token_matrix_generator('director')
+    genres_matrix = token_matrix_generator('genres')[0]
+    keywords_matrix = token_matrix_generator('keywords')[0]
+    overview_matrix = token_matrix_generator('overview')[0]
+    tagline_matrix = token_matrix_generator('tagline')[0]
+    title_matrix = token_matrix_generator('title')[0]
+    cast_matrix = token_matrix_generator('cast')[0]
+    director_matrix = token_matrix_generator('director')[0]
 
     combined_vector = hstack([genres_matrix, keywords_matrix, overview_matrix, tagline_matrix, cast_matrix, director_matrix])
 
