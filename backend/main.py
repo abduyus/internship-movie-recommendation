@@ -22,7 +22,7 @@ async def recommend(movie_title: str = Query(..., alias="movie_title")):
     movie_title = movie_title.lower()
 
     # Step 1: Read the CSV file with appropriate parameters
-    df = pd.read_csv('../../data/movie_dataset.csv')
+    df = pd.read_csv('../data/movie_dataset.csv')
     df['title'] = df['title'].str.lower()
 
     expected_columns = ['genres', 'keywords', 'cast', 'director']
