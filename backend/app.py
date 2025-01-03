@@ -7,6 +7,7 @@ from scipy.sparse import hstack
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
 from flask_cors import CORS
+
 app = Flask(__name__)
 CORS(app)
 
@@ -18,9 +19,9 @@ def home():
 def recommend():
     # Get the movie title from the query parameters
     movie_title = request.args.get('movie_title', '').lower()
-
+    print(f"Retrieved Title: {movie_title}")
     # Step 1: Read the CSV file with appropriate parameters
-    df = pd.read_csv('../data/movie_dataset.csv')
+    df = pd.read_csv('data/movie_dataset.csv')
     df['title'] = df['title'].str.lower()
 
     expected_columns = ['genres', 'keywords', 'cast', 'director']
