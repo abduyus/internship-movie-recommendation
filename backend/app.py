@@ -81,7 +81,7 @@ def recommend():
     def recommended(movie_title):
         row = df[df['title'] == movie_title]
         if row.empty:
-            return []
+            return unrecognised_movie(movie_title)
         movie_index = row.index[0]
         similar_movies = list(enumerate(similarity_matrix[movie_index]))
         similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
@@ -92,7 +92,7 @@ def recommend():
         return jsonify({"error": "Movie not found"}), 404
 
     recommended_movies = df.iloc[recommendations].drop(
-        columns=['crew', 'original_title', 'encoded_genres', 'encoded_keywords', 'encoded_cast', 'encoded_director']
+        columns=['crew', 'encoded_genres', 'encoded_keywords', 'encoded_cast', 'encoded_director']
     )
 
     # Replace NaN with None for valid JSON

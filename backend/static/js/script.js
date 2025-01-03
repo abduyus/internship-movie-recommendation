@@ -2,7 +2,7 @@
 
 const movieFormEl = document.querySelector(".search-bar");
 const movieInputEl = document.querySelector(".movie-form");
-
+const cardParentEl = document.querySelector(".cards");
 movieFormEl.addEventListener("submit", (e) => {
   e.preventDefault();
   const movieName = movieInputEl.value.trim();
@@ -11,27 +11,34 @@ movieFormEl.addEventListener("submit", (e) => {
   }
 });
 
-const displayRecommendations = function (movieStr) {
-  // console.log(typeof movieStr);
-
-  console.log(movieStr);
-  // const recommendationsEl = document.querySelector(".recommendations");
-  // recommendationsEl.innerHTML = "";
-
-  // movieList.forEach((movie) => {
-  //   const movieEl = document.createElement("div");
-  //   movieEl.classList.add("movie");
-
-  //   const titleEl = document.createElement("h3");
-  //   titleEl.textContent = movie.title;
-  //   movieEl.appendChild(titleEl);
-
-  //   const overviewEl = document.createElement("p");
-  //   overviewEl.textContent = movie.overview;
-  //   movieEl.appendChild(overviewEl);
-
-  //   recommendationsEl.appendChild(movieEl);
-  // });
+const displayRecommendations = function (movieArr) {
+  movieArr.forEach((movie) => {
+    const markup = `
+    <article class="card">
+      <div class="card__data">
+      <a href="${movie.homepage}" class="card__heading">${
+      movie.original_title
+    }</a>
+      <div class="card__genres">
+        ${movie.genres_arr
+          .map(
+            (genre) =>
+              `<span class="card__genre ${genre.toLowerCase()}">${genre}</span>`
+          )
+          .join("")}
+      </div>
+      <h4 class="card__subheading">${movie.tagline || " "}</h4>
+      <p class="card__row"><span>⭐</span>${movie.vote_average}</p>
+      <p class="card__row"><span>📅</span>${movie.release_date.substring(
+        0,
+        4
+      )}</p>
+      <p class="card__row"><span>🗣️</span>${movie.director}</p>
+      </div>
+    </article>
+    `;
+    cardParentEl.insertAdjacentHTML("beforeend", markup);
+  });
 };
 
 const getRecommendedMovies = async function (movieName) {
