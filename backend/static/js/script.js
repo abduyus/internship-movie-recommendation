@@ -42,11 +42,14 @@ const getRecommendedMovies = async function (movieName) {
       )}`
     );
     if (!res.ok) throw new Error(`An error has occurred: ${res.status}`);
-    // const data = await res.json();
     const data = await res.json();
     console.log(data);
 
-    displayRecommendations(data);
+    if (data.error) {
+      console.error("Error:", data.error);
+    } else {
+      displayRecommendations(data);
+    }
   } catch (error) {
     console.error("Network error:", error);
   }

@@ -17,10 +17,10 @@ def home():
 
 @app.route('/recommend', methods=['GET'])
 def recommend():
-    # Get the movie title from the query parameters
     movie_title = request.args.get('movie_title', '').lower()
     print(f"Retrieved Title: {movie_title}")
-    # Step 1: Read the CSV file with appropriate parameters
+
+    # Load and preprocess your dataset
     df = pd.read_csv('data/movie_dataset.csv')
     df['title'] = df['title'].str.lower()
 
@@ -77,19 +77,28 @@ def recommend():
         similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
         return [movie[0] for movie in similar_movies[1:6]]
 
+    
     def recommended(movie_title):
         row = df[df['title'] == movie_title]
-        # if row.empty:
-        #     return unrecognised_movie(movie_title)
+        if row.empty:
+            return []
         movie_index = row.index[0]
         similar_movies = list(enumerate(similarity_matrix[movie_index]))
         similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
         return [movie[0] for movie in similar_movies[1:6]]
+
     recommendations = recommended(movie_title)
-    recommended_movies = df.iloc[recommendations].drop(columns=['crew', 'original_title', 'encoded_genres', 'encoded_keywords', 'encoded_cast', 'encoded_director'])
-    print(recommended_movies.to_dict(orient='records'))
-    return recommended_movies.to_dict(orient='records')
-    # return jsonify(recommendations)
+    if not recommendations:
+        return jsonify({"error": "Movie not found"}), 404
+
+    recommended_movies = df.iloc[recommendations].drop(
+        columns=['crew', 'original_title', 'encoded_genres', 'encoded_keywords', 'encoded_cast', 'encoded_director']
+    )
+
+    # Replace NaN with None for valid JSON
+    result = recommended_movies.replace({pd.NA: None, float('nan'): None}).to_dict(orient='records')
+    print(result)
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)
