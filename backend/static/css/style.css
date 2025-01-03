@@ -41,6 +41,10 @@ h1 {
   /* margin-bottom: 2.4rem; */
 }
 
+.hidden {
+  display: none;
+}
+
 .movie-txt {
   box-sizing: border-box;
   /* width: 100%; */
@@ -137,6 +141,7 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
+  transition: all 0.3s;
 }
 
 .app-desc {
@@ -358,4 +363,26 @@ h1 {
   background-color: #dc2626;
   padding: 0.8rem 8rem;
   transform: rotate(45deg);
+}
+
+.spinner {
+  text-align: center;
+  margin: 5rem auto;
+}
+
+.spinner svg {
+  fill: #f38e82;
+  width: 6rem;
+  height: 6rem;
+  animation: 2s linear infinite rotate;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

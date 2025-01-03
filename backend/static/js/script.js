@@ -3,15 +3,20 @@
 const movieFormEl = document.querySelector(".search-bar");
 const movieInputEl = document.querySelector(".movie-form");
 const cardParentEl = document.querySelector(".cards");
+const placementText = document.querySelector(".placement-text");
 movieFormEl.addEventListener("submit", (e) => {
   e.preventDefault();
   const movieName = movieInputEl.value.trim();
   if (movieName) {
     getRecommendedMovies(movieName);
+    cardParentEl.classList.remove("hidden");
   }
 });
 
 const displayRecommendations = function (movieArr) {
+  cardParentEl.classList.add("remove");
+  cardParentEl.innerHTML = "";
+  placementText.textContent = "Here are your top 5 Movie Recommendations";
   movieArr.forEach((movie) => {
     const markup = `
     <article class="card">
@@ -38,6 +43,9 @@ const displayRecommendations = function (movieArr) {
     </article>
     `;
     cardParentEl.insertAdjacentHTML("beforeend", markup);
+    cardParentEl.firstElementChild
+      .closest("article")
+      .classList.add("card_first");
   });
 };
 
