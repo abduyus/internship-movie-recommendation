@@ -62,6 +62,7 @@ def recommend():
     cast_matrix = token_matrix_generator('cast')[0]
     director_matrix = token_matrix_generator('director')[0]
 
+    # print(genres_matrix)
     combined_vector = hstack([genres_matrix, keywords_matrix, overview_matrix, tagline_matrix, cast_matrix, director_matrix])
 
     scaler = StandardScaler(with_mean=False)
@@ -78,15 +79,17 @@ def recommend():
 
     def recommended(movie_title):
         row = df[df['title'] == movie_title]
-        if row.empty:
-            return unrecognised_movie(movie_title)
+        # if row.empty:
+        #     return unrecognised_movie(movie_title)
         movie_index = row.index[0]
         similar_movies = list(enumerate(similarity_matrix[movie_index]))
         similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
         return [movie[0] for movie in similar_movies[1:6]]
     recommendations = recommended(movie_title)
-    recommended_movies = df.iloc[recommendations]
-    return jsonify(recommended_movies.to_dict(orient='records'))
+    recommended_movies = df.iloc[recommendations].drop(columns=['crew', 'original_title', 'encoded_genres', 'encoded_keywords', 'encoded_cast', 'encoded_director'])
+    print(recommended_movies.to_dict(orient='records'))
+    return recommended_movies.to_dict(orient='records')
+    # return jsonify(recommendations)
 
 if __name__ == '__main__':
     app.run(debug=True)
