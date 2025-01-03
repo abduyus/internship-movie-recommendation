@@ -9,7 +9,11 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     />
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script
+      defer
+      type="module"
+      src="{{ url_for('static', filename='js/script.js') }}"
+    ></script>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}"
@@ -22,14 +26,14 @@
       <nav>
         <h1 class="title">Movie Recommendation System</h1>
         <div class="search-bar-container">
-          <div class="search-bar">
+          <form class="search-bar">
             <input
               type="text"
               class="movie-form"
               placeholder="Enter Movie Name"
             />
             <button>SEARCH</button>
-          </div>
+          </form>
         </div>
       </nav>
     </header>
