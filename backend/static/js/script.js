@@ -14,8 +14,7 @@ movieFormEl.addEventListener("submit", (e) => {
 const displayRecommendations = function (movieStr) {
   // console.log(typeof movieStr);
 
-  const movieList = JSON.parse(sanitizedMovieStr);
-  console.log(movieList);
+  console.log(movieStr);
   // const recommendationsEl = document.querySelector(".recommendations");
   // recommendationsEl.innerHTML = "";
 
@@ -44,7 +43,7 @@ const getRecommendedMovies = async function (movieName) {
     );
     if (!res.ok) throw new Error(`An error has occurred: ${res.status}`);
     // const data = await res.json();
-    const data = await res.text();
+    const data = await res.json();
     console.log(data);
 
     displayRecommendations(data);
