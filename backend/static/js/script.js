@@ -11,24 +11,28 @@ movieFormEl.addEventListener("submit", (e) => {
   }
 });
 
-const displayRecommendations = function (movies) {
-  const recommendationsEl = document.querySelector(".recommendations");
-  recommendationsEl.innerHTML = "";
+const displayRecommendations = function (movieStr) {
+  // console.log(typeof movieStr);
 
-  movies.forEach((movie) => {
-    const movieEl = document.createElement("div");
-    movieEl.classList.add("movie");
+  const movieList = JSON.parse(sanitizedMovieStr);
+  console.log(movieList);
+  // const recommendationsEl = document.querySelector(".recommendations");
+  // recommendationsEl.innerHTML = "";
 
-    const titleEl = document.createElement("h3");
-    titleEl.textContent = movie.title;
-    movieEl.appendChild(titleEl);
+  // movieList.forEach((movie) => {
+  //   const movieEl = document.createElement("div");
+  //   movieEl.classList.add("movie");
 
-    const overviewEl = document.createElement("p");
-    overviewEl.textContent = movie.overview;
-    movieEl.appendChild(overviewEl);
+  //   const titleEl = document.createElement("h3");
+  //   titleEl.textContent = movie.title;
+  //   movieEl.appendChild(titleEl);
 
-    recommendationsEl.appendChild(movieEl);
-  });
+  //   const overviewEl = document.createElement("p");
+  //   overviewEl.textContent = movie.overview;
+  //   movieEl.appendChild(overviewEl);
+
+  //   recommendationsEl.appendChild(movieEl);
+  // });
 };
 
 const getRecommendedMovies = async function (movieName) {
@@ -39,15 +43,10 @@ const getRecommendedMovies = async function (movieName) {
       )}`
     );
     if (!res.ok) throw new Error(`An error has occurred: ${res.status}`);
-    const text = await res.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch (error) {
-      console.error("JSON parsing error:", error);
-      data = [];
-    }
+    // const data = await res.json();
+    const data = await res.text();
     console.log(data);
+
     displayRecommendations(data);
   } catch (error) {
     console.error("Network error:", error);
