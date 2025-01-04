@@ -58,10 +58,11 @@ def recommend():
     keywords_matrix = token_matrix_generator('keywords')[0]
     overview_matrix = token_matrix_generator('overview')[0]
     tagline_matrix = token_matrix_generator('tagline')[0]
-    title_matrix = token_matrix_generator('title')[0]
+    title_matrix, _, _ = token_matrix_generator('title')
     cast_matrix = token_matrix_generator('cast')[0]
     director_matrix = token_matrix_generator('director')[0]
 
+    print(f'title matrix: {title_matrix}')
     # print(genres_matrix)
     combined_vector = hstack([genres_matrix, keywords_matrix, overview_matrix, tagline_matrix, cast_matrix, director_matrix])
 
@@ -71,11 +72,23 @@ def recommend():
     similarity_matrix = cosine_similarity(normalized_vector)
 
     def unrecognised_movie(movie_title):
+        title_matrix = vectorizer.fit_transform(df['title'].fillna(''))
+
+        # Step 2: Transform the input title
         title_vector = vectorizer.transform([movie_title])
+
+        # Step 3: Compute cosine similarity
         similarity_scores = cosine_similarity(title_vector, title_matrix)
+
+        # Output similarity scores
+        print(similarity_scores)
         similar_movies = list(enumerate(similarity_scores[0]))
+        print(similar_movies)
         similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
-        return [movie[0] for movie in similar_movies[1:6]]
+        print(similar_movies)
+        recommendation = [movie[0] for movie in similar_movies[1:6]]
+        print(recommendation)
+        return recommendation
 
     
     def recommended(movie_title):
@@ -97,7 +110,7 @@ def recommend():
 
     # Replace NaN with None for valid JSON
     result = recommended_movies.replace({pd.NA: None, float('nan'): None}).to_dict(orient='records')
-    print(result)
+    # print(result)
     return jsonify(result)
 
 if __name__ == '__main__':

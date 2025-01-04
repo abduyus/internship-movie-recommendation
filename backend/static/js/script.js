@@ -3,25 +3,29 @@
 const movieFormEl = document.querySelector(".search-bar");
 const movieInputEl = document.querySelector(".movie-form");
 const cardParentEl = document.querySelector(".cards");
+const loadingSpinner = document.querySelector(".spinner");
 const placementText = document.querySelector(".placement-text");
 movieFormEl.addEventListener("submit", (e) => {
   e.preventDefault();
   const movieName = movieInputEl.value.trim();
   if (movieName) {
     getRecommendedMovies(movieName);
-    cardParentEl.classList.remove("hidden");
+    loadingSpinner.classList.remove("hidden");
   }
 });
 
-const displayRecommendations = function (movieArr) {
-  cardParentEl.classList.add("remove");
+const displayRecommendations = function (
+  movieArr,
+  msg = "Here are your top 5 Movie Recommendations"
+) {
+  loadingSpinner.classList.add("hidden");
   cardParentEl.innerHTML = "";
-  placementText.textContent = "Here are your top 5 Movie Recommendations";
+  placementText.textContent = msg;
   movieArr.forEach((movie) => {
     const markup = `
     <article class="card">
       <div class="card__data">
-      <a href="${movie.homepage}" class="card__heading">${
+      <a href="${movie.homepage}" target="_blank" class="card__heading">${
       movie.original_title
     }</a>
       <div class="card__genres">
@@ -56,12 +60,14 @@ const getRecommendedMovies = async function (movieName) {
         movieName
       )}`
     );
+    console.log(res);
     if (!res.ok) throw new Error(`An error has occurred: ${res.status}`);
     const data = await res.json();
     console.log(data);
 
     if (data.error) {
       console.error("Error:", data.error);
+      displayRecommendations(data, data.error);
     } else {
       displayRecommendations(data);
     }
