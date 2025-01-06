@@ -1,0 +1,36 @@
+@media (max-width: 75em) {
+  /* 1200px */
+
+  header {
+    all: unset;
+  }
+
+  nav {
+    all: unset;
+  }
+
+  nav .title {
+    z-index: 9999;
+    padding: 2.4rem;
+    background-color: #000000;
+    /* background-color: #e9ecef; */
+    border-radius: 0.8rem;
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    margin: 1rem;
+    font-weight: 500;
+    background: linear-gradient(to right, #99e9f2, #eebefa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .search-bar-container {
+    z-index: 9999;
+    margin-top: 2.4rem;
+    max-width: 80%;
+  }
+
+  .grid {
+    margin-top: 9.6rem;
+  }
+}
