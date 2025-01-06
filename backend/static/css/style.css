@@ -179,10 +179,13 @@ h1 {
 } */
 
 .card.card_first {
-  box-shadow: 0 2rem 5rem 1rem rgba(252, 2, 2, 0.4);
-  /* border: 2px  #f44336; Add a border */
+  /* box-shadow: 0 2rem 5rem 1rem rgba(252, 2, 2, 0.4); */
+  box-shadow: 0 2rem 5rem 1rem rgba(217, 70, 239, 0.5);
+  /* border: 2px solid linear-gradient(to right, #67e8f9, #d946ef); */
+
   font-size: 2rem; /* Increase font size */
-  width: 35rem;
+  /* width: 35rem; */
+
   transform: scale(1.05); /* Slightly enlarge the card */
   animation: pulse 1.5s infinite; /* Add a subtle animation */
 }
