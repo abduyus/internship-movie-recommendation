@@ -155,9 +155,16 @@ h1 {
 .cards {
   /* background-color: white; */
   /* margin-bottom: 8rem; */
-  display: flex;
-
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 2.4rem;
+  justify-items: center;
+  align-items: center;
   font-size: 2rem;
+  overflow-x: auto;
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+  height: fit-content;
 }
 
 .card {
@@ -188,6 +195,14 @@ h1 {
 
   transform: scale(1.05); /* Slightly enlarge the card */
   animation: pulse 1.5s infinite; /* Add a subtle animation */
+  transition: all 0.3s;
+}
+
+.card.card_first:hover {
+  box-shadow: 0 2rem 5rem 1rem rgba(70, 205, 239, 0.5);
+  transform: scale(1.1);
+  /* transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; */
+  animation: none;
 }
 
 @keyframes pulse {
