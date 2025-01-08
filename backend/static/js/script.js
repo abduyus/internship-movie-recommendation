@@ -10,6 +10,7 @@ movieFormEl.addEventListener("submit", (e) => {
   const movieName = movieInputEl.value.trim();
   if (movieName) {
     getRecommendedMovies(movieName);
+    // cardParentEl.innerHTML = "";
     loadingSpinner.classList.remove("hidden");
   }
 });

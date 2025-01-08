@@ -161,7 +161,7 @@ h1 {
   justify-items: center;
   align-items: center;
   font-size: 2rem;
-  overflow-x: auto;
+  overflow-x: scroll;
   padding-top: 5rem;
   padding-bottom: 10rem;
   height: fit-content;
@@ -176,7 +176,8 @@ h1 {
   border-radius: 0.7rem;
   margin: 0 3rem;
   overflow: hidden;
-  position: relative;
+  height: 35rem;
+  overflow: scroll;
 }
 
 /* .card.card_first {
@@ -186,6 +187,7 @@ h1 {
 } */
 
 .card.card_first {
+  height: auto;
   /* box-shadow: 0 2rem 5rem 1rem rgba(252, 2, 2, 0.4); */
   box-shadow: 0 2rem 5rem 1rem rgba(217, 70, 239, 0.5);
   /* border: 2px solid linear-gradient(to right, #67e8f9, #d946ef); */
@@ -411,22 +413,34 @@ h1 {
 } */
 
 .spinner {
+  grid-column: span 5;
   text-align: center;
   margin: 5rem auto;
 }
 
 .spinner svg {
   fill: #f38e82;
+  animation: color-fade 4s linear infinite, rotate 2s linear infinite;
   width: 6rem;
   height: 6rem;
-  animation: 2s linear infinite rotate;
+}
+
+@keyframes color-fade {
+  0% {
+    fill: #d946ef;
+  }
+  50% {
+    fill: #67e8f9;
+  }
+  100% {
+    fill: #d946ef;
+  }
 }
 
 @keyframes rotate {
   0% {
     transform: rotate(0);
   }
-
   100% {
     transform: rotate(360deg);
   }
