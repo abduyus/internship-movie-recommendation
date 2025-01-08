@@ -5,6 +5,8 @@ const movieInputEl = document.querySelector(".movie-form");
 const cardParentEl = document.querySelector(".cards");
 const loadingSpinner = document.querySelector(".spinner");
 const placementText = document.querySelector(".placement-text");
+const genreCheckboxes = document.querySelectorAll(".filter__checkbox");
+
 movieFormEl.addEventListener("submit", (e) => {
   e.preventDefault();
   const movieName = movieInputEl.value.trim();
@@ -23,6 +25,16 @@ const displayRecommendations = function (
   cardParentEl.innerHTML = "";
   placementText.textContent = msg;
   movieArr.forEach((movie) => {
+    genreCheckboxes.forEach((item) =>
+      item.addEventListener("change", () => {
+        const checkedGenres = Array.from(genreCheckboxes)
+          .filter((checkbox) => checkbox.checked)
+          .map((checkbox) => checkbox.nextElementSibling.textContent);
+
+        checkedGenres.forEach((genre) => {});
+      })
+    );
+
     const markup = `
     <article class="card">
       <div class="card__data">
