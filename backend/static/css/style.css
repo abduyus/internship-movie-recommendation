@@ -13,6 +13,51 @@ body {
   background-color: #1c1c1c;
 }
 
+.card::-webkit-scrollbar {
+  width: 0; /* Hide the scrollbar by default */
+  height: 0; /* Hide the scrollbar by default */
+}
+
+.card:hover::-webkit-scrollbar {
+  width: 12px; /* Show the scrollbar on hover */
+  height: 12px; /* Show the scrollbar on hover */
+}
+
+.card::-webkit-scrollbar-track {
+  background: #1c1c1c; /* Background of the scrollbar track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+.card::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to right,
+    #67e8f9,
+    #d946ef
+  ); /* Gradient color for the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  border: 3px solid #1c1c1c; /* Space around the thumb */
+}
+
+.card::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    to right,
+    #d946ef,
+    #67e8f9
+  ); /* Change color on hover */
+}
+
+/* Custom Scrollbar for Firefox */
+.card {
+  scrollbar-width: none; /* Hide the scrollbar by default */
+}
+
+.card:hover {
+  scrollbar-width: thin; /* Show the scrollbar on hover */
+  scrollbar-color: #67e8f9 #1c1c1c; /* Color of the thumb and track */
+}
+
+/* Optional: Apply custom scrollbar styles to specific elements */
+
 header {
   padding: 2.4rem;
   background-color: #0b0b0b;
@@ -230,6 +275,8 @@ h1 {
   padding-top: 5rem;
   padding-bottom: 10rem;
   height: fit-content;
+  scrollbar-width: none; /* Width of the scrollbar */
+  scrollbar-color: #67e8f9 #1c1c1c; /* Color of the thumb and track */
 }
 
 .card {
@@ -242,7 +289,7 @@ h1 {
   margin: 0 3rem;
   overflow: hidden;
   height: 35rem;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 /* .card.card_first {

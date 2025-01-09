@@ -3,9 +3,11 @@
 const movieFormEl = document.querySelector(".search-bar");
 const movieInputEl = document.querySelector(".movie-form");
 const cardParentEl = document.querySelector(".cards");
+const cardEl = document.querySelectorAll(".card");
 const loadingSpinner = document.querySelector(".spinner");
 const placementText = document.querySelector(".placement-text");
 const genreCheckboxes = document.querySelectorAll(".filter__checkbox");
+const genreFilter = document.querySelector(".filter");
 
 movieFormEl.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -22,19 +24,10 @@ const displayRecommendations = function (
   msg = "Here are your top 5 Movie Recommendations"
 ) {
   loadingSpinner.classList.add("hidden");
+  genreFilter.classList.remove("hidden");
   cardParentEl.innerHTML = "";
   placementText.textContent = msg;
   movieArr.forEach((movie) => {
-    genreCheckboxes.forEach((item) =>
-      item.addEventListener("change", () => {
-        const checkedGenres = Array.from(genreCheckboxes)
-          .filter((checkbox) => checkbox.checked)
-          .map((checkbox) => checkbox.nextElementSibling.textContent);
-
-        checkedGenres.forEach((genre) => {});
-      })
-    );
-
     const markup = `
     <article class="card">
       <div class="card__data">
@@ -88,3 +81,25 @@ const getRecommendedMovies = async function (movieName) {
     console.error("Network error:", error);
   }
 };
+let genres;
+
+cardEl.forEach((card) => {
+  genres = Array.from(card.querySelectorAll(".card__genre")).map(
+    (genre) => genre.textContent
+  );
+});
+
+console.log(genres);
+
+genreCheckboxes.forEach((item) =>
+  item.addEventListener("change", () => {
+    const checkedGenres = Array.from(genreCheckboxes)
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.nextElementSibling.textContent);
+
+    checkedGenres.forEach((genre) => {
+      console.log(genre);
+      genres.includes(genre) ? console.log(true) : console.log(false);
+    });
+  })
+);
