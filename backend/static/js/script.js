@@ -103,3 +103,20 @@ genreCheckboxes.forEach((item) =>
     });
   })
 );
+
+const checkGenre = function (movieCard) {
+  const checkedGenres = Array.from(genreCheckboxes)
+    .filter((checkbox) => checkbox.checked)
+    .map((checkbox) => checkbox.nextElementSibling.textContent);
+  checkedGenres.forEach((genre) => {
+    console.log(genre);
+    genres.includes(genre) ? console.log(true) : console.log(false);
+  });
+  const genres = movieCard.querySelectorAll("card__genre").textContent;
+  genres.includes();
+};
+
+const cardFilter = Array.from(document.querySelectorAll(".card"));
+
+console.log(cardFilter);
+cardFilter.filter();
