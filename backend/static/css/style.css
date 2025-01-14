@@ -1,0 +1,560 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #1c1c1c;
+}
+
+.card::-webkit-scrollbar {
+  width: 0; /* Hide the scrollbar by default */
+  height: 0; /* Hide the scrollbar by default */
+}
+
+.card:hover::-webkit-scrollbar {
+  width: 12px; /* Show the scrollbar on hover */
+  height: 12px; /* Show the scrollbar on hover */
+}
+
+.card::-webkit-scrollbar-track {
+  background: #1c1c1c; /* Background of the scrollbar track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+.card::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    to right,
+    #67e8f9,
+    #d946ef
+  ); /* Gradient color for the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  border: 3px solid #1c1c1c; /* Space around the thumb */
+}
+
+.card::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    to right,
+    #d946ef,
+    #67e8f9
+  ); /* Change color on hover */
+}
+
+/* Custom Scrollbar for Firefox */
+.card {
+  scrollbar-width: none; /* Hide the scrollbar by default */
+}
+
+.card:hover {
+  scrollbar-width: thin; /* Show the scrollbar on hover */
+  scrollbar-color: #67e8f9 #1c1c1c; /* Color of the thumb and track */
+}
+
+/* Optional: Apply custom scrollbar styles to specific elements */
+
+header {
+  padding: 2.4rem;
+  background-color: #0b0b0b;
+  /* background-color: #e9ecef; */
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  margin: 1rem;
+  /* max-width: 60rem; */
+  /* max-width: 60rem; */
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 1.2rem;
+  margin-top: 1.2rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  /* margin-bottom: 2.4rem; */
+}
+
+.hidden {
+  display: none;
+}
+
+.movie-txt {
+  box-sizing: border-box;
+  /* width: 100%; */
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 9px;
+  font-family: inherit;
+  color: inherit;
+  background-color: #e9ecef;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-weight: 500;
+  background: linear-gradient(to right, #99e9f2, #eebefa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  position: absolute; /* Centers the item relative to the container */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 500rem;
+  padding: 10px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.8rem;
+  color: #888;
+  font-weight: 500;
+  background: transparent;
+  padding: 10px 15px;
+  border-radius: 50px;
+}
+
+.search-bar input::placeholder {
+  color: #adb5bd;
+  /* font-style: italic; */
+}
+
+.search-bar button {
+  background: linear-gradient(to right, #0284c7, #c026d3);
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-bar button:hover {
+  color: #ffffff;
+  /* padding: 12px 24px; */
+  font-size: 1.8rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  /* gap: 1.6rem; */
+  width: 100%;
+  margin-top: 2.4rem;
+  margin-bottom: 9.6rem;
+}
+
+.placement-text {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 4.8rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #67e8f9, #d946ef);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.app-desc {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #eebefa;
+}
+
+/* ------------------------Filter----------------------- */
+/* Ensure the filter container has appropriate padding and margin */
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem; /* Adjust padding as needed */
+  margin: 1rem 0; /* Adjust margin as needed */
+  background-color: #1c1c1c; /* Optional: Set a background color */
+}
+
+.filter_heading {
+  align-self: center;
+  text-align: center;
+  width: 100%;
+  background: linear-gradient(to right, #99e9f2, #eebefa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2.4rem;
+}
+/* Ensure the filter options are displayed correctly */
+.filter__options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem; /* Adjust gap between filter options */
+}
+
+/* Ensure the filter options have appropriate padding and margin */
+.filter__option {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem; /* Adjust padding as needed */
+  margin: 0.5rem; /* Adjust margin as needed */
+  background-color: #2c2c2c; /* Optional: Set a background color */
+  border-radius: 12rem; /* Optional: Set border radius */
+}
+
+/* Style the filter checkboxes */
+.filter__checkbox {
+  display: none; /* Hide the default checkbox */
+}
+
+/* Style the filter labels to look like card genres */
+.filter__checkbox + .card__genre {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #333;
+  border-radius: 12rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Change the background color and text color when the checkbox is checked */
+.filter__checkbox:checked + .card__genre {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* /////////////////////////////////////////////////////// */
+
+.cards {
+  /* background-color: white; */
+  /* margin-bottom: 8rem; */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 2.4rem;
+  justify-items: center;
+  align-items: center;
+  font-size: 2rem;
+  overflow-x: scroll;
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+  height: fit-content;
+  scrollbar-width: none; /* Width of the scrollbar */
+  scrollbar-color: #67e8f9 #1c1c1c; /* Color of the thumb and track */
+  transition: all 0.3s;
+}
+
+.card {
+  background-color: #303030;
+  box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
+  font-size: 1.8rem;
+  width: auto;
+  width: 30rem;
+  border-radius: 0.7rem;
+  margin: 0 3rem;
+  overflow: hidden;
+  height: 35rem;
+  overflow-y: scroll;
+}
+
+/* .card.card_first {
+  box-shadow: 0 2rem 5rem 1rem rgba(252, 2, 2, 0.2);
+
+  width: 35rem;
+} */
+
+.card.card_first {
+  height: auto;
+  /* box-shadow: 0 2rem 5rem 1rem rgba(252, 2, 2, 0.4); */
+  box-shadow: 0 2rem 5rem 1rem rgba(217, 70, 239, 0.5);
+  /* border: 2px solid linear-gradient(to right, #67e8f9, #d946ef); */
+
+  font-size: 2rem; /* Increase font size */
+  /* width: 35rem; */
+
+  transform: scale(1.05); /* Slightly enlarge the card */
+  animation: pulse 1.5s infinite; /* Add a subtle animation */
+  transition: all 0.3s;
+}
+
+.card.card_first:hover {
+  box-shadow: 0 2rem 5rem 1rem rgba(70, 205, 239, 0.5);
+  transform: scale(1.1);
+  /* transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; */
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+.card__data {
+  padding: 2.5rem 3.75rem 3rem 3.75rem;
+}
+
+.card__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  font-size: 1.3rem;
+  margin-bottom: 2.4rem;
+  margin-top: 1.2rem;
+}
+
+.card__genre {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #333;
+  border-radius: 100px;
+  font-weight: 600;
+}
+
+.card__genre.action {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.card__genre.science {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.card__genre.fiction {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.card__genre.adventure {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.card__genre.comedy {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.card__genre.animation {
+  background-color: #f0abfc;
+  color: #701a75;
+}
+
+.card__genre.crime {
+  background-color: #d6d8d9;
+  color: #6c757d;
+}
+
+.card__genre.documentary {
+  background-color: #fca5a5;
+  color: #7c2d12;
+}
+
+.card__genre.drama {
+  background-color: #d9f99d;
+  color: #365314;
+}
+
+.card__genre.family {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.card__genre.fantasy {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.card__genre.fiction {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.card__genre.foreign {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.card__genre.history {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.card__genre.horror {
+  background-color: #f0abfc;
+  color: #701a75;
+}
+
+.card__genre.movie {
+  background-color: #d6d8d9;
+  color: #6c757d;
+}
+
+.card__genre.music {
+  background-color: #fca5a5;
+  color: #7c2d12;
+}
+
+.card__genre.mystery {
+  background-color: #d9f99d;
+  color: #365314;
+}
+
+.card__genre.romance {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.card__genre.science {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.card__genre.thriller {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.card__genre.tv {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.card__genre.war {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.card__genre.western {
+  background-color: #f0abfc;
+  color: #701a75;
+}
+
+.card__heading:link,
+.card__heading:visited {
+  font-size: 2.7rem;
+  margin-bottom: 1.2rem;
+  color: #bebebe;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.card__heading:hover {
+  color: #007bff;
+}
+
+.card__subheading {
+  font-size: 1.4rem;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  /* color: #888; */
+  color: #c4c4c4;
+}
+
+.card__row:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.card__row {
+  color: #bebebe;
+  font-weight: 700;
+}
+.card__row span {
+  display: inline-block;
+  margin-right: 2rem;
+  font-size: 2.4rem;
+}
+
+/* .card.card_first::after {
+  content: "No.1 RECOMMENDED";
+  position: absolute;
+  top: 9%;
+  right: -30%;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: #dc2626;
+  padding: 0.8rem 8rem;
+  transform: rotate(45deg);
+} */
+
+.spinner {
+  grid-column: span 5;
+  text-align: center;
+  margin: 5rem auto;
+}
+
+.spinner svg {
+  fill: #f38e82;
+  animation: color-fade 4s linear infinite, rotate 2s linear infinite;
+  width: 6rem;
+  height: 6rem;
+}
+
+@keyframes color-fade {
+  0% {
+    fill: #d946ef;
+  }
+  50% {
+    fill: #67e8f9;
+  }
+  100% {
+    fill: #d946ef;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
