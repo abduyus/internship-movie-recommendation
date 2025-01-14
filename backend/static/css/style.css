@@ -277,6 +277,7 @@ h1 {
   height: fit-content;
   scrollbar-width: none; /* Width of the scrollbar */
   scrollbar-color: #67e8f9 #1c1c1c; /* Color of the thumb and track */
+  transition: all 0.3s;
 }
 
 .card {

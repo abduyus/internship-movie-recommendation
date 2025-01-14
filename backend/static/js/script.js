@@ -83,40 +83,60 @@ const getRecommendedMovies = async function (movieName) {
 };
 let genres;
 
-cardEl.forEach((card) => {
-  genres = Array.from(card.querySelectorAll(".card__genre")).map(
-    (genre) => genre.textContent
-  );
+genreCheckboxes.forEach((item) => {
+  item.addEventListener("change", () => {
+    // Duplicate the cardEl array
+    const cardArray = Array.from(cardEl);
+
+    // Get the list of checked genres
+    const checkedGenres = Array.from(genreCheckboxes)
+      .filter((checkbox) => checkbox.checked)
+      .map((checkbox) => checkbox.nextElementSibling.textContent.toLowerCase());
+
+    // Filter the duplicated array based on the selected genres
+    const filteredCards = cardArray.filter((card) => {
+      const genres = Array.from(card.querySelectorAll(".card__genre")).map(
+        (genre) => genre.textContent.toLowerCase()
+      );
+      if (checkedGenres.length === 0) return true; // No genres selected, display all cards
+      return checkedGenres.some((genre) => genres.includes(genre));
+    });
+
+    // Clear the current cards
+    cardParentEl.innerHTML = "";
+
+    // Render the filtered cards
+    filteredCards.forEach((card) => {
+      cardParentEl.appendChild(card);
+    });
+  });
 });
 
 console.log(genres);
 
-genreCheckboxes.forEach((item) =>
-  item.addEventListener("change", () => {
-    const checkedGenres = Array.from(genreCheckboxes)
-      .filter((checkbox) => checkbox.checked)
-      .map((checkbox) => checkbox.nextElementSibling.textContent);
+// eventListener for checkboxes
+// get list of checked boxes
+// iterate over the genres
+// check if each of the cards contain one of the genres
+// render the card if this is true
 
-    checkedGenres.forEach((genre) => {
-      console.log(genre);
-      genres.includes(genre) ? console.log(true) : console.log(false);
-    });
-  })
-);
+// genreCheckboxes.forEach((item) =>
+//   item.addEventListener("click", console.log("clicked"))
+// );
 
-const checkGenre = function (movieCard) {
-  const checkedGenres = Array.from(genreCheckboxes)
-    .filter((checkbox) => checkbox.checked)
-    .map((checkbox) => checkbox.nextElementSibling.textContent);
-  checkedGenres.forEach((genre) => {
-    console.log(genre);
-    genres.includes(genre) ? console.log(true) : console.log(false);
-  });
-  const genres = movieCard.querySelectorAll("card__genre").textContent;
-  genres.includes();
-};
+// const checkGenre = function (movieCard) {
+//   const checkedGenres = Array.from(genreCheckboxes)
+//     .filter((checkbox) => checkbox.checked)
+//     .map((checkbox) => checkbox.nextElementSibling.textContent);
+//   checkedGenres.forEach((genre) => {
+//     console.log(genre);
+//     genres.includes(genre) ? console.log(true) : console.log(false);
+//   });
+//   const genres = movieCard.querySelectorAll("card__genre").textContent;
+//   genres.includes();
+// };
 
-const cardFilter = Array.from(document.querySelectorAll(".card"));
+// const cardFilter = Array.from(document.querySelectorAll(".card"));
 
-console.log(cardFilter);
-cardFilter.filter();
+// console.log(cardFilter);
+// cardFilter.filter();
