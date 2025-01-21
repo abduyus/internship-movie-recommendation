@@ -3,7 +3,7 @@ import pandas as pd
 import re
 import tiktoken
 from sklearn.feature_extraction.text import CountVectorizer
-from scipy.sparse import hstack
+from scipy.sparse import hstack, load_npz
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
 from flask_cors import CORS
@@ -11,83 +11,76 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+df = pd.read_csv('data/processed_movie_dataset.csv')
+vectorizer = CountVectorizer()
+title_matrix = load_npz('data/title_matrix.npz')
+similarity_matrix = load_npz('data/similarity_matrix.npz')
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
 @app.route('/recommend', methods=['GET'])
+    # Calculate Store the data e.g. matrix of the dataset 
+    # and the encoded genres once and then store then seperately 
+    # e.g. in a csv etc.
 def recommend():
     movie_title = request.args.get('movie_title', '').lower()
     print(f"Retrieved Title: {movie_title}")
 
     # Load and preprocess your dataset
-    df = pd.read_csv('data/movie_dataset.csv')
-    df['title'] = df['title'].str.lower()
 
-    expected_columns = ['genres', 'keywords', 'cast', 'director']
-    df = df[[col for col in df.columns if col in expected_columns or col not in expected_columns]]
+    print(df.columns)
+    # df['title'] = df['title'].str.lower()
 
-    df['genres_arr'] = df['genres'].apply(lambda x: x.split(' ') if isinstance(x, str) else x)
-    df['keywords_arr'] = df['keywords'].apply(lambda x: x.split(' ') if isinstance(x, str) else x)
+    # expected_columns = ['genres', 'keywords', 'cast', 'director']
+    # df = df[[col for col in df.columns if col in expected_columns or col not in expected_columns]]
 
-    def split_into_pairs(text):
-        if isinstance(text, str):
-            return re.findall(r'\b\w+\s+\w+\b', text)
-        return text
+    # df['genres_arr'] = df['genres'].apply(lambda x: x.split(' ') if isinstance(x, str) else x)
+    # df['keywords_arr'] = df['keywords'].apply(lambda x: x.split(' ') if isinstance(x, str) else x)
 
-    df['cast_arr'] = df['cast'].apply(split_into_pairs)
+    # def split_into_pairs(text):
+    #     if isinstance(text, str):
+    #         return re.findall(r'\b\w+\s+\w+\b', text)
+    #     return text
 
-    encoding = tiktoken.encoding_for_model('gpt-4o')
+    # df['cast_arr'] = df['cast'].apply(split_into_pairs)
 
-    df['encoded_genres'] = df['genres_arr'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
-    df['encoded_keywords'] = df['keywords_arr'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
-    df['encoded_cast'] = df['cast_arr'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
-    df['encoded_director'] = df['director'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
+    # encoding = tiktoken.encoding_for_model('gpt-4o')
 
-    vectorizer = CountVectorizer()
+    # df['encoded_genres'] = df['genres_arr'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
+    # df['encoded_keywords'] = df['keywords_arr'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
+    # df['encoded_cast'] = df['cast_arr'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
+    # df['encoded_director'] = df['director'].apply(lambda x: [encoding.encode(item) for item in x] if isinstance(x, list) else [])
 
-    def token_matrix_generator(column):
-        df[column] = df[column].fillna('')
-        matrix_name = vectorizer.fit_transform(df[column])
-        array_name = matrix_name.toarray()
-        df_name = pd.DataFrame(array_name, columns=vectorizer.get_feature_names_out())
-        return matrix_name, array_name, df_name
 
-    df['tagline'] = df['tagline'].apply(lambda x: x if isinstance(x, str) else '')
-    genres_matrix = token_matrix_generator('genres')[0]
-    keywords_matrix = token_matrix_generator('keywords')[0]
-    overview_matrix = token_matrix_generator('overview')[0]
-    tagline_matrix = token_matrix_generator('tagline')[0]
-    title_matrix, _, _ = token_matrix_generator('title')
-    cast_matrix = token_matrix_generator('cast')[0]
-    director_matrix = token_matrix_generator('director')[0]
 
-    print(f'title matrix: {title_matrix}')
-    # print(genres_matrix)
-    combined_vector = hstack([genres_matrix, keywords_matrix, overview_matrix, tagline_matrix, cast_matrix, director_matrix])
+    # def token_matrix_generator(column):
+    #     df[column] = df[column].fillna('')
+    #     matrix_name = vectorizer.fit_transform(df[column])
+    #     array_name = matrix_name.toarray()
+    #     df_name = pd.DataFrame(array_name, columns=vectorizer.get_feature_names_out())
+    #     return matrix_name, array_name, df_name
 
-    scaler = StandardScaler(with_mean=False)
-    normalized_vector = scaler.fit_transform(combined_vector).toarray()
+    # df['tagline'] = df['tagline'].apply(lambda x: x if isinstance(x, str) else '')
+    # genres_matrix = token_matrix_generator('genres')[0]
+    # keywords_matrix = token_matrix_generator('keywords')[0]
+    # overview_matrix = token_matrix_generator('overview')[0]
+    # tagline_matrix = token_matrix_generator('tagline')[0]
+    # title_matrix, _, _ = token_matrix_generator('title')
+    # cast_matrix = token_matrix_generator('cast')[0]
+    # director_matrix = token_matrix_generator('director')[0]
+  
+  
 
-    similarity_matrix = cosine_similarity(normalized_vector)
+    
 
     def unrecognised_movie(movie_title):
-        title_matrix = vectorizer.fit_transform(df['title'].fillna(''))
-
-        # Step 2: Transform the input title
         title_vector = vectorizer.transform([movie_title])
-
-        # Step 3: Compute cosine similarity
         similarity_scores = cosine_similarity(title_vector, title_matrix)
-
-        # Output similarity scores
-        print(similarity_scores)
         similar_movies = list(enumerate(similarity_scores[0]))
-        print(similar_movies)
         similar_movies = sorted(similar_movies, key=lambda x: x[1], reverse=True)
-        print(similar_movies)
         recommendation = [movie[0] for movie in similar_movies[1:6]]
-        print(recommendation)
         return recommendation
 
     
