@@ -111,6 +111,12 @@ df['genre_matrix'] = dense_data_as_list
 
 
 print(df['cast_matrix'])
+save_npz('data/combined_vector.npz', csr_matrix(similarity_matrix))
 save_npz('data/title_matrix.npz', title_matrix)
-save_npz('data/similarity_matrix.npz', csr_matrix(similarity_matrix))
+save_npz('data/genres_matrix.npz', genres_matrix)
+save_npz('data/keywords_matrix.npz', keywords_matrix)
+save_npz('data/overview_matrix.npz', overview_matrix)
+save_npz('data/tagline_matrix.npz', tagline_matrix)
+save_npz('data/cast_matrix.npz', cast_matrix)
+save_npz('data/director_matrix.npz', director_matrix)
 print('saved')

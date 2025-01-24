@@ -15,7 +15,19 @@ CORS(app)
 df = pd.read_csv('data/movie_dataset.csv')
 vectorizer = CountVectorizer()
 title_matrix = vectorizer.fit_transform(df['title'].fillna(''))
-similarity_matrix = load_npz('data/similarity_matrix.npz')
+genres_matrix = load_npz('data/genres_matrix.npz')
+director_matrix = load_npz('data/director_matrix.npz')
+cast_matrix = load_npz('data/cast_matrix.npz')
+keywords_matrix = load_npz('data/keywords_matrix.npz')
+tagline_matrix = load_npz('data/tagline_matrix.npz')
+overview_matrix = load_npz('data/overview_matrix.npz')
+combined_vector = hstack([genres_matrix, keywords_matrix, overview_matrix, tagline_matrix, cast_matrix, director_matrix])
+
+scaler = StandardScaler(with_mean=False)
+normalized_vector = scaler.fit_transform(combined_vector).toarray()
+
+similarity_matrix = cosine_similarity(normalized_vector)
+# similarity_matrix = load_npz('data/combined_vector.npz')
 
 # Ensure genres_arr is properly set for all movies
 df['genres_arr'] = df['genres'].apply(lambda x: x.split(' ') if isinstance(x, str) else [])
